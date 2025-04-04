@@ -1,19 +1,22 @@
 import asyncio
 import random
 import time
+import uuid
 
 from car.car import Direction, Car, NumberTrafficLight
 from redis_service import create_item
 
 
 def create_car_without_parameters():
+    car_id = uuid.uuid4()
     direction = random.randint(1, 3)
     number_traffic_light = random.randint(1, 4)
-    return Car(direction = create_direction(direction), number_traffic_light = create_number_traffic_light(number_traffic_light))
+    return Car(id = car_id, direction = create_direction(direction), number_traffic_light = create_number_traffic_light(number_traffic_light))
 
 def create_car_by_number_traffic_light(number_traffic_light: NumberTrafficLight):
     direction = random.randint(1, 3)
-    return Car(number_traffic_light = number_traffic_light, direction = create_direction(direction))
+    car_id = uuid.uuid4()
+    return Car(id = car_id, number_traffic_light = number_traffic_light, direction = create_direction(direction))
 
 def create_direction(direction_index: int):
     if direction_index == 1:
