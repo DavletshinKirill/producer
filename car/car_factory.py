@@ -3,16 +3,8 @@ import random
 import time
 
 from car.car import Direction, Car, NumberTrafficLight
-from config import FIRST_CONNER_TRAFFIC_LIGHT, SECOND_CONNER_TRAFFIC_LIGHT, THIRD_CONNER_TRAFFIC_LIGHT, \
-    FOURTH_CONNER_TRAFFIC_LIGHT
-from producer import send_car_to_topic
+from redis_service import create_item
 
-topic_list_cars = [
-    FIRST_CONNER_TRAFFIC_LIGHT,
-    SECOND_CONNER_TRAFFIC_LIGHT,
-    THIRD_CONNER_TRAFFIC_LIGHT,
-    FOURTH_CONNER_TRAFFIC_LIGHT
-]
 
 def create_car_without_parameters():
     direction = random.randint(1, 3)
@@ -50,10 +42,10 @@ async def create_cars_for_minute():
             break
         car = create_car_without_parameters()
         print(f"Car was sent to topic")
-        send_car_to_topic(topic_list_cars[car.number_traffic_light.value], car)
+        create_item(car)
         await asyncio.sleep(0.5)
 
 async def create_five_cars_by_traffic_light(number_traffic_light: NumberTrafficLight):
     for _ in range(5):
         car = create_car_by_number_traffic_light(number_traffic_light)
-        send_car_to_topic(topic_list_cars[car.number_traffic_light.value], car)
+        create_item(car)

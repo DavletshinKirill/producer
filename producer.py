@@ -1,8 +1,5 @@
-import json
-
 from pika import ConnectionParameters, BlockingConnection
 from config import *
-from car.car import Car
 from traffic_light.traffic_light import TrafficLightState
 
 connection_params = ConnectionParameters(
@@ -17,10 +14,6 @@ def connect_with_rabbit_mq():
             channel.queue_declare(queue=SECOND_TRAFFIC_LIGHT)
             channel.queue_declare(queue=THIRD_TRAFFIC_LIGHT)
             channel.queue_declare(queue=FOURTH_TRAFFIC_LIGHT)
-            channel.queue_declare(queue=FIRST_CONNER_TRAFFIC_LIGHT)
-            channel.queue_declare(queue=SECOND_CONNER_TRAFFIC_LIGHT)
-            channel.queue_declare(queue=THIRD_CONNER_TRAFFIC_LIGHT)
-            channel.queue_declare(queue=FOURTH_CONNER_TRAFFIC_LIGHT)
 
 def send_traffic_lights(topic: str, state: TrafficLightState):
     with BlockingConnection(connection_params) as connection:
@@ -29,13 +22,4 @@ def send_traffic_lights(topic: str, state: TrafficLightState):
                 exchange='',
                 routing_key=topic,
                 body=state.get_state(),
-            )
-
-def send_car_to_topic(topic: str, car: Car):
-    with BlockingConnection(connection_params) as connection:
-        with connection.channel() as channel:
-            channel.basic_publish(
-                exchange='',
-                routing_key=topic,
-                body=json.dumps(car.to_dict()),
             )
