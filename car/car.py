@@ -21,6 +21,7 @@ class Car(BaseModel):
 
     def to_dict(self):
         return {
+            "id": f"{self.id}",
             "direction": self.direction.value,
             "number_traffic_light": self.number_traffic_light.value,
         }

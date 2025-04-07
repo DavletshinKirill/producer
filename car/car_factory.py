@@ -46,7 +46,7 @@ async def create_cars_for_minute():
         car = create_car_without_parameters()
         print(f"Car was sent to topic")
         create_item(car)
-        await asyncio.sleep(0.5)
+        await asyncio.sleep(1)
 
 async def create_five_cars_by_traffic_light(number_traffic_light: NumberTrafficLight):
     for _ in range(5):
