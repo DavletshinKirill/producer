@@ -1,6 +1,6 @@
-FROM python3.12.8
+FROM python:3.12.8
 WORKDIR /app
 COPY . .
 RUN pip install -r requirements.txt
-EXPOSE 8081
+EXPOSE 8001
 CMD ["python", "main.py"]
