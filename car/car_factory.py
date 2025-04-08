@@ -36,12 +36,13 @@ def create_number_traffic_light(number_traffic_light: int):
     elif number_traffic_light == 4:
         return NumberTrafficLight.FOURTH
 
-async def create_cars_for_minute():
+
+async def create_cars_for_two_minute():
     start_time = time.time()
 
     while True:
         elapsed_time = time.time() - start_time
-        if elapsed_time >= 60:
+        if elapsed_time >= 120:
             break
         car = create_car_without_parameters()
         print(f"Car was sent to topic")

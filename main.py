@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from starlette.responses import JSONResponse
 
 from car.car import NumberTrafficLightValidation
-from car.car_factory import create_cars_for_minute, create_five_cars_by_traffic_light
+from car.car_factory import create_five_cars_by_traffic_light, create_cars_for_two_minute
 from producer import connect_with_rabbit_mq
 from traffic_light.traffic_light_factory import start_traffic_light
 
@@ -20,7 +20,7 @@ async def startup_event():
 
 @app.post("/enable_creating_cars")
 async def root():
-    asyncio.create_task(create_cars_for_minute())
+    asyncio.create_task(create_cars_for_two_minute())
     return JSONResponse(status_code=200, content={"message": "Success"})
 
 
