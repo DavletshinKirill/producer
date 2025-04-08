@@ -7,7 +7,8 @@ connection_params = ConnectionParameters(
     port=RABBIT_PORT,
 )
 
-def connect_with_rabbit_mq():
+
+async def connect_with_rabbit_mq():
     with BlockingConnection(connection_params) as connection:
         with connection.channel() as channel:
             channel.queue_declare(queue=FIRST_TRAFFIC_LIGHT)

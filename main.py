@@ -14,7 +14,7 @@ app = FastAPI()
 
 @app.on_event("startup")
 async def startup_event():
-    connect_with_rabbit_mq()
+    asyncio.create_task(connect_with_rabbit_mq())
     asyncio.create_task(start_traffic_light())
 
 
